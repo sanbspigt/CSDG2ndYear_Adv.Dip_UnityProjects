@@ -7,17 +7,23 @@ using TMPro;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    Transform previousParent;
+    public Transform previousParent;
 
     [HideInInspector]
     public int value;
 
-    [SerializeField]
+    //[SerializeField]
     TextMeshProUGUI valueTextBox;
-    
+    Vector3 startPosition;
+    void Awake()
+    {
+        valueTextBox = transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        startPosition = transform.position;
+    }
     public void SetValueToText(int value)
     {
         this.value = value;
+        if(valueTextBox!=null)
         valueTextBox.text = value.ToString();
     }
 

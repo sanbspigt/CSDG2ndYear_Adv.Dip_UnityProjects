@@ -15,10 +15,47 @@ public class GameManager : MonoBehaviour
     int value2;
     int result;
 
+    public int finalV1,finalV2,finalResult;
+
     [SerializeField]
     GameObject []bottomBarObjs = new GameObject[3];
     [SerializeField]
-    GameObject mainMenu, gamePlayScreen;
+    GameObject mainMenu, gamePlayScreen,
+        levelWin,levelFail;
+
+    private void Start()
+    {
+        if (gamePlayScreen.activeInHierarchy)
+        { 
+            gamePlayScreen.SetActive(false);
+            mainMenu.SetActive(true);
+            GenererateRandomValues();
+        }
+    }
+
+    public void CheckForLevelComplete()
+    {
+        
+        switch (currGameplayState)
+        {
+            case GameplayState.ADDITION:
+
+                break;
+            case GameplayState.SUBTRACTION:
+                break;
+            case GameplayState.MULTIPLICATION:
+                break;
+            case GameplayState.DIVISION:
+                break;
+            case GameplayState.NONE:
+                break;
+        }
+    }
+
+    public void CheckForLevelFail()
+    {
+
+    }
 
     /// <summary>
     /// Generating random values based on user level.
@@ -48,13 +85,24 @@ public class GameManager : MonoBehaviour
         }
 
         result = value1 + value2;
+        Debug.Log("Values: v1:"+value1+"  v2: "+value2 +"\tRes: "+result);
     }
 
     void SetValuesToUIElements()
     {
-        bottomBarObjs[0].GetComponent<DraggableItem>().SetValueToText(value1);
-        bottomBarObjs[1].GetComponent<DraggableItem>().SetValueToText(value2);
-        bottomBarObjs[2].GetComponent<DraggableItem>().SetValueToText(result);
+        if (Random.value >= 0.5f)
+        {
+            bottomBarObjs[0].GetComponent<DraggableItem>().SetValueToText(value1);
+            bottomBarObjs[1].GetComponent<DraggableItem>().SetValueToText(value2);
+            bottomBarObjs[2].GetComponent<DraggableItem>().SetValueToText(result);
+        }
+        else
+        {
+            bottomBarObjs[2].GetComponent<DraggableItem>().SetValueToText(value1);
+            bottomBarObjs[1].GetComponent<DraggableItem>().SetValueToText(value2);
+            bottomBarObjs[0].GetComponent<DraggableItem>().SetValueToText(result);
+        }
+        
     }
 
     void SetTheCurrentArithematicOperator()
@@ -78,11 +126,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    //Event calls from the buttons
     public void SetCurrGameState(int currGS)
     {
         currGameplayState = (GameplayState)currGS;
         mainMenu.SetActive(false);
         SetTheCurrentArithematicOperator();
+        SetValuesToUIElements();
         gamePlayScreen.SetActive(true);
         Debug.Log("Curr Game State: "+currGameplayState);
     }
@@ -92,10 +143,11 @@ public class GameManager : MonoBehaviour
         return PlayerPrefs.GetInt("CURR_USER_LEVEL",0);
     }
 
-    void GenerateArthValues()
-    { 
-        
+    int GetCurrLevelsPlayed()
+    {
+        return PlayerPrefs.GetInt("CURR_LEVELS_PLAYED",0);
     }
+
 }
 
 public enum GameplayState
