@@ -32,6 +32,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Debug.Log("Beginning of Drag!");
         previousParent = transform.parent;
         GetComponent<Image>().raycastTarget = false;
+
+        //if (transform.parent.gameObject.
+        //    GetComponent<DroppableItem>()!= null)
+        //{
+        //    DroppableItem.noOfBoxesFilled--;
+        //}
     }
 
     public void OnDrag(PointerEventData eventData)

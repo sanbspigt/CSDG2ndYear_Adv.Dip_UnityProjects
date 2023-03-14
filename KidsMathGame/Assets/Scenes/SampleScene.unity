@@ -4091,6 +4091,7 @@ MonoBehaviour:
   gamePlayScreen: {fileID: 1426428154}
   levelWin: {fileID: 142236443}
   levelFail: {fileID: 43685283}
+  bottomBarPar: {fileID: 2094767204}
 --- !u!4 &1944482216
 Transform:
   m_ObjectHideFlags: 0

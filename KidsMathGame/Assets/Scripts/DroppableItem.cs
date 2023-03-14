@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class DroppableItem : MonoBehaviour,IDropHandler
 {
     GameManager GM;
+    //public static int noOfBoxesFilled = 0;
     void Awake()
     {
         GM = GameObject.FindObjectOfType<GameManager>();
@@ -16,7 +17,7 @@ public class DroppableItem : MonoBehaviour,IDropHandler
         {
             Debug.Log("Gameobject Name: "
                 + eventData.pointerDrag.name
-                +"  Dropable Obj: "+transform.gameObject.name);
+                + "  Dropable Obj: " + transform.gameObject.name);
 
             eventData.pointerDrag.gameObject.
                 GetComponent<DraggableItem>().previousParent = transform;
@@ -27,6 +28,10 @@ public class DroppableItem : MonoBehaviour,IDropHandler
             DraggableItem DragItem = eventData.pointerDrag.gameObject.
                 GetComponent<DraggableItem>();
 
+            //noOfBoxesFilled++;
+
+            //Debug.Log("No. of Droppables Filled: " + noOfBoxesFilled);
+
             if (transform.GetSiblingIndex() == 0)
                 GM.finalV1 = DragItem.value;
             else if(transform.GetSiblingIndex() == 1)
@@ -34,8 +39,9 @@ public class DroppableItem : MonoBehaviour,IDropHandler
             else if (transform.GetSiblingIndex() == 2)
                 GM.finalResult = DragItem.value;
 
+
             GM.CheckForLevelComplete();
-            GM.CheckForLevelFail();
+            //GM.CheckForLevelFail();
         }
     }
 

@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     GameObject mainMenu, gamePlayScreen,
         levelWin,levelFail;
 
+    [SerializeField]
+    Transform bottomBarPar;
+    
+   
     private void Start()
     {
         if (gamePlayScreen.activeInHierarchy)
@@ -35,11 +39,24 @@ public class GameManager : MonoBehaviour
 
     public void CheckForLevelComplete()
     {
-        
+       
+        if (bottomBarPar.childCount != 0) return;
+
         switch (currGameplayState)
         {
             case GameplayState.ADDITION:
-
+                if (finalResult == result)
+                {
+                    if ((finalV1 == value1 && finalV2 == value2) ||
+                       (finalV1 == value2 && finalV2 == value1))
+                    {
+                        levelWin.SetActive(true);
+                    }
+                }
+                else
+                {
+                    CheckForLevelFail();
+                }
                 break;
             case GameplayState.SUBTRACTION:
                 break;
@@ -54,7 +71,9 @@ public class GameManager : MonoBehaviour
 
     public void CheckForLevelFail()
     {
+        if (bottomBarPar.childCount !=0) return;
 
+        levelFail.SetActive(true);
     }
 
     /// <summary>
