@@ -20,6 +20,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         valueTextBox = transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         startPosition = transform.position;
     }
+
+    public void ResetPostions()
+    {
+        transform.position = startPosition;
+    }
+
     public void SetValueToText(int value)
     {
         this.value = value;

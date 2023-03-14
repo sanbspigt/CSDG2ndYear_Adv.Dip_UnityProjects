@@ -284,7 +284,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 33734157}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1944482215}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &33734157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +495,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 47353163}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1944482215}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GoToNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &47353163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,7 +2033,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 833330617}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1944482215}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GoToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &833330617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4091,6 +4127,7 @@ MonoBehaviour:
   gamePlayScreen: {fileID: 1426428154}
   levelWin: {fileID: 142236443}
   levelFail: {fileID: 43685283}
+  operatorText: {fileID: 917761432}
   bottomBarPar: {fileID: 2094767204}
 --- !u!4 &1944482216
 Transform:
@@ -4548,7 +4585,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2053596464}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1944482215}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GoToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2053596464
 MonoBehaviour:
   m_ObjectHideFlags: 0

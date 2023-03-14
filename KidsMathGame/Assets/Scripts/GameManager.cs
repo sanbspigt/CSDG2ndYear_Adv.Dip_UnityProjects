@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameplayState currGameplayState = GameplayState.NONE;
@@ -22,7 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject mainMenu, gamePlayScreen,
         levelWin,levelFail;
-
+    [SerializeField]
+    TextMeshProUGUI operatorText;
     [SerializeField]
     Transform bottomBarPar;
     
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
         { 
             gamePlayScreen.SetActive(false);
             mainMenu.SetActive(true);
-            GenererateRandomValues();
+            
         }
     }
 
@@ -59,13 +61,82 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameplayState.SUBTRACTION:
+                if (finalResult == result)
+                {
+                    if ((finalV1 == value1 && finalV2 == value2))
+                    {
+                        levelWin.SetActive(true);
+                    }
+                }
+                else
+                {
+                    CheckForLevelFail();
+                }
                 break;
             case GameplayState.MULTIPLICATION:
+                if (finalResult == result)
+                {
+                    if ((finalV1 == value1 && finalV2 == value2) ||
+                       (finalV1 == value2 && finalV2 == value1))
+                    {
+                        levelWin.SetActive(true);
+                    }
+                }
+                else
+                {
+                    CheckForLevelFail();
+                }
                 break;
             case GameplayState.DIVISION:
+                if (finalResult == result)
+                {
+                    if ((finalV1 == value1 && finalV2 == value2))
+                    {
+                        levelWin.SetActive(true);
+                    }
+                }
+                else
+                {
+                    CheckForLevelFail();
+                }
                 break;
             case GameplayState.NONE:
                 break;
+        }
+    }
+
+    //For Level Win screen 
+    public void GoToNextLevel()
+    {
+        PlayerPrefs.SetInt("CURR_LEVELS_PLAYED", GetCurrLevelsPlayed() + 1);
+        GoToMainMenu();
+    }
+
+    //For Level Fail Screen
+    public void RestartLevel()
+    {
+        levelFail.SetActive(false);
+        levelWin.SetActive(false);
+        gamePlayScreen.SetActive(true);
+        mainMenu.SetActive(false);
+        SetPrevPosOfDraggables();
+    }
+
+    public void GoToMainMenu()
+    {
+        levelFail.SetActive(false);
+        levelWin.SetActive(false);
+        gamePlayScreen.SetActive(false);
+        mainMenu.SetActive(true);
+        SetPrevPosOfDraggables();
+    }
+
+    void SetPrevPosOfDraggables()
+    {
+        for (int i = 0; i < bottomBarObjs.Length; i++)
+        {
+            bottomBarObjs[i].
+                GetComponent<DraggableItem>().ResetPostions();
         }
     }
 
@@ -86,7 +157,8 @@ public class GameManager : MonoBehaviour
         {
             case 0:
                 value1 = Random.Range(0, rangeOfFirstLevelUser);
-                value2 = Random.Range(0, rangeOfFirstLevelUser);                
+                value2 = Random.Range(0, rangeOfFirstLevelUser);
+                
                 break;
             case 1:
                 value1 = Random.Range(0, rangeOfSecondLevelUser);
@@ -102,9 +174,33 @@ public class GameManager : MonoBehaviour
                 break;
 
         }
+        CalcResult();
+        
+      //  Debug.Log("Values: v1:"+value1+"  v2: "+value2 +"\tRes: "+result);
+    }
 
-        result = value1 + value2;
-        Debug.Log("Values: v1:"+value1+"  v2: "+value2 +"\tRes: "+result);
+    void CalcResult()
+    {
+        switch (currGameplayState)
+        {
+            case GameplayState.ADDITION:
+                result = value1 + value2;
+                break;
+            case GameplayState.SUBTRACTION:
+                if (value1 >= value2)
+                    result = value1 - value2;
+                else
+                    result = value2 - value1;
+                break;
+            case GameplayState.MULTIPLICATION:
+                result = value1 * value2;
+                break;
+            case GameplayState.DIVISION:
+                result = value1 / value2;
+                break;
+            case GameplayState.NONE:
+                break;
+        }
     }
 
     void SetValuesToUIElements()
@@ -121,7 +217,7 @@ public class GameManager : MonoBehaviour
             bottomBarObjs[1].GetComponent<DraggableItem>().SetValueToText(value2);
             bottomBarObjs[0].GetComponent<DraggableItem>().SetValueToText(result);
         }
-        
+        operatorText.text = currOperator;
     }
 
     void SetTheCurrentArithematicOperator()
@@ -151,6 +247,7 @@ public class GameManager : MonoBehaviour
     {
         currGameplayState = (GameplayState)currGS;
         mainMenu.SetActive(false);
+        GenererateRandomValues();
         SetTheCurrentArithematicOperator();
         SetValuesToUIElements();
         gamePlayScreen.SetActive(true);
